@@ -7,28 +7,21 @@ var app = express();
 var mongo = require('mongodb');
 var db = require('monk')('localhost:27017/express_mongodb_api');
 
-// routes
-app.use(function(req, res, next){
-    req.db = db;
-    next();
-});
-
 var index = require('./routes/index');
-app.use('/', index);
-
 var api = require('./routes/api');
-app.use('/api', api);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// routes
+app.use(function(req, res, next){ req.db = db; next(); });
+app.use('/', index);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
