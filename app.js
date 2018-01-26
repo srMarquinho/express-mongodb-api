@@ -1,8 +1,9 @@
 var express = require('express');
+var app = express();
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var app = express();
+var expressSanitizer = require('express-sanitizer');
 
 var mongo = require('mongodb');
 var db = require('monk')('localhost:27017/express_mongodb_api');
@@ -13,10 +14,13 @@ var api = require('./routes/api');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// middlewares
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressSanitizer());
 
 // routes
 app.use(function(req, res, next){ req.db = db; next(); });

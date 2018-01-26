@@ -11,6 +11,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "^2.6.9",
     "express": "^4.15.5",
+    "express-sanitizer": "^1.0.3",
     "jade": "^1.11.0",
     "mongodb": "^3.0.1",
     "monk": "^6.0.5",
