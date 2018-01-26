@@ -62,17 +62,14 @@ function validateMessage (req, res, next) {
 
 // helper functions
 function sendJsonMessageSuccess(res, data) {
-  res.json({
-    "result": true,
-    "dataType": "message",
-    "data": data
-  });
+  sendJsonSuccess(res, data, "message");
 }
 
-function sendJsonSuccess(res, data) {
+function sendJsonSuccess(res, data, dataType) {
+  dataType = dataType || "string";
   res.json({
     "result": true,
-    "dataType": "string",
+    "dataType": dataType,
     "data": data
   });
 }
