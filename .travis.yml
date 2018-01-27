@@ -8,5 +8,5 @@ before_install:
 install:
 - npm install
 script:
-- npm mongod
+- npm run mongod
 - npm test
