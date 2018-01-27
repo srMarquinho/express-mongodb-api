@@ -1,0 +1,11 @@
+notifications:
+  email: false
+language: node_js
+node_js:
+- 9.4.0
+before_install:
+- sudo apt-get update -qq
+install:
+- npm install
+script:
+- npm test
