@@ -2,11 +2,12 @@ notifications:
   email: false
 language: node_js
 node_js:
-- 9.4.0
+  - 9.4.0
 before_install:
-- sudo apt-get update -qq
+  - sudo apt-get update -qq
 install:
-- npm install
+  - npm install
+services:
+  - npm run mongod
 script:
-- npm run mongod
-- npm test
+  - npm test
