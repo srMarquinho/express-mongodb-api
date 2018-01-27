@@ -5,8 +5,19 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var expressSanitizer = require('express-sanitizer');
 
+// db setup
 var mongo = require('mongodb');
-var db = require('monk')('localhost:27017/express_mongodb_api');
+switch (process.env.NODE_ENV) {
+  case "production":
+    // set production db
+    // var db = require('monk')('');
+    break;
+  case "test":
+    var db = require('monk')('localhost:27017/express_mongodb_api_test');
+    break;
+  default:
+    var db = require('monk')('localhost:27017/express_mongodb_api');
+}
 
 var index = require('./routes/index');
 var api = require('./routes/api');
