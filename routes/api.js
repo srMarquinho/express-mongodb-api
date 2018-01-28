@@ -34,10 +34,7 @@ router.post('/messages', getMessages, validateMessage, function(req, res) {
 
 /* GET message */
 router.get('/messages/:id', getMessages, function(req, res) {
-  // Regular expression that checks for hex value
-  // https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
-  var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
-  if (checkForHexRegExp.test(req.params.id)) {
+  if (Message.validId(req.params.id)) {
     res.locals.messages.findOne({_id: req.params.id}, {}, function(err, doc) {
       if (err) {
         sendJsonError(res);

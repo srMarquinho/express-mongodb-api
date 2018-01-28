@@ -23,6 +23,13 @@ Message.validTags = function (tags) {
   }
 };
 
+Message.validId = function (_id) {
+  // Regular expression that checks for hex value
+  // https://github.com/mongodb/js-bson/blob/master/lib/bson/objectid.js
+  var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
+  return checkForHexRegExp.test(_id);
+};
+
 Message.isValid = function (message) {
   return Message.validContent(message.content) && Message.validTimestamp(message.timestamp) && Message.validTags(message.tags);
 };
