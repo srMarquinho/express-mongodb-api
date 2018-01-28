@@ -38,6 +38,5 @@ Using CURL:
 - A couple of TODOs in code:
   - id is ignored as it is auto-generated - check if it should fail and message the user
   - check if sanitizing the content is enough or if it should fail and message the user if it has HTML tags
-  - move necessary code to its own file such as Message model
 
 ![alt text](doc/test.png)
