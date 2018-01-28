@@ -5,7 +5,7 @@ var Message = require("../models/message");
 /* GET all messages */
 router.get('/messages', getMessages, function(req, res) {
   res.locals.messages.find({}, {}, function(err, doc) {
-    if (err || doc == null) {
+    if (err || doc === null) {
       sendJsonError(res);
     } else {
       sendJsonMessageSuccess(res, doc);
@@ -23,7 +23,7 @@ router.post('/messages', getMessages, validateMessage, function(req, res) {
     tags: req.body.tags || []
     
   }, function(err, doc) {
-    if (err || doc == null) {
+    if (err || doc === null) {
       sendJsonError(res);
     } else {
       res.statusCode = 201;
@@ -33,31 +33,25 @@ router.post('/messages', getMessages, validateMessage, function(req, res) {
 });
 
 /* GET message */
-router.get('/messages/:id', getMessages, function(req, res) {
-  if (Message.validId(req.params.id)) {
-    res.locals.messages.findOne({_id: req.params.id}, {}, function(err, doc) {
-      if (err) {
-        sendJsonError(res);
-      } else if (doc == null) {
-        res.statusCode = 404;
-        sendJsonError(res);
-      } else {
-        sendJsonMessageSuccess(res, doc);
-      }
-    });
-    
-  } else {
-    res.statusCode = 404;
-    sendJsonError(res);
-  }
+router.get('/messages/:id', getMessages, validateId, function(req, res) {
+  res.locals.messages.findOne({_id: req.params.id}, {}, function(err, doc) {
+    if (err) {
+      sendJsonError(res);
+    } else if (doc === null) {
+      res.statusCode = 404;
+      sendJsonError(res);
+    } else {
+      sendJsonMessageSuccess(res, doc);
+    }
+  });
 });
 
 /* DELETE message */
-router.delete('/messages/:id', getMessages, function(req, res) {
+router.delete('/messages/:id', getMessages, validateId, function(req, res) {
   res.locals.messages.findOneAndDelete({_id: req.params.id}, {}, function(err, doc) {
     if (err) {
       sendJsonError(res);
-    } else if (doc == null) {
+    } else if (doc === null) {
       res.statusCode = 404;
       sendJsonError(res);
     } else {
@@ -78,6 +72,15 @@ function validateMessage (req, res, next) {
     next();
   } else {
     sendJsonError(res, "Validation error: Message could not be created");
+  }
+}
+
+function validateId(req, res, next) {
+  if (Message.validId(req.params.id)) {
+    next();
+  } else {
+    res.statusCode = 404;
+    sendJsonError(res);
   }
 }
 

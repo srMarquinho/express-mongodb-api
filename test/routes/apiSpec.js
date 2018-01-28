@@ -158,6 +158,14 @@ describe('Messages API Routes', function() {
     });
   
     it('returns status 404 when id is not found', function(done) {
+      request.get('/api/messages/fakeId85a78c9510eb5f97c3')
+        .expect(404)
+        .end(function(err, res) {
+          done(err);
+        });
+    });
+    
+    it('returns status 404 when id is not a valid hex value', function(done) {
       request.get('/api/messages/fakeId')
         .expect(404)
         .end(function(err, res) {
@@ -181,6 +189,14 @@ describe('Messages API Routes', function() {
     });
       
     it('returns status 404 when id is not found', function(done) {
+      request.get('/api/messages/fakeId85a78c9510eb5f97c3')
+        .expect(404)
+        .end(function(err, res) {
+          done(err);
+        });
+    });
+    
+    it('returns status 404 when id is not a valid hex value', function(done) {
       request.get('/api/messages/fakeId')
         .expect(404)
         .end(function(err, res) {
