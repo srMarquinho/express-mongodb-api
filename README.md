@@ -29,14 +29,15 @@ Using CURL:
 - *Delete message:* `curl -X DELETE http://localhost:3000/api/messages/<_id> -H 'content-type: application/json'`
 
 #### Where to:
+- Consider moving from Monk to Mongoose as the app grows.
 - Improve user experience adding specific error and validation messages.
 - Add the Update feature.
 - Add a User Interface so the user can View, Create, Remove, Update and Delete messages from the browser.
 - Add user login.
-- Consider moving from Monk to Mongoose as the app grows.
 - Add Unit Tests
 - A couple of TODOs in code:
   - id is ignored as it is auto-generated - check if it should fail and message the user
-  - check if sanitizing the content is enough or if should fail and message the user if it has HTML tags
+  - check if sanitizing the content is enough or if it should fail and message the user if it has HTML tags
+  - move necessary code to its own file such as Message model
 
 ![alt text](doc/test.png)
