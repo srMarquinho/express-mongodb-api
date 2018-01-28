@@ -144,7 +144,7 @@ describe('Messages API Routes', function() {
   });
   
   describe('GET /api/messages/:id', function() {
-    it('ger a message by id and return corret json', function(done) {
+    it('get a message by id and return corret json', function(done) {
       messages.findOne({}, {}, function(err, message) {
         request.get('/api/messages/' + message._id)
           .expect(200)
@@ -178,6 +178,14 @@ describe('Messages API Routes', function() {
             done(err);
           });
       });
+    });
+      
+    it('returns status 404 when id is not found', function(done) {
+      request.get('/api/messages/fakeId')
+        .expect(404)
+        .end(function(err, res) {
+          done(err);
+        });
     });
   });
 });

@@ -42,6 +42,7 @@ router.get('/messages/:id', getCollection, function(req, res) {
         sendJsonError(res);
       } else if (doc == null) {
         res.statusCode = 404;
+        sendJsonError(res);
       } else {
         sendJsonMessageSuccess(res, doc);
       }
@@ -56,7 +57,10 @@ router.get('/messages/:id', getCollection, function(req, res) {
 /* DELETE message */
 router.delete('/messages/:id', getCollection, function(req, res) {
   res.locals.collection.findOneAndDelete({_id: req.params.id}, {}, function(err, doc) {
-    if (err || doc == null) {
+    if (err) {
+      sendJsonError(res);
+    } else if (doc == null) {
+      res.statusCode = 404;
       sendJsonError(res);
     } else {
       sendJsonSuccess(res, "Message deleted");
